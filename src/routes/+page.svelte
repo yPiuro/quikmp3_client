@@ -31,7 +31,7 @@
 		<input id="file-upload" type="file" class="hidden" />
 	</div>
 
-	<!-- Progress Bar (color updated to purple) -->
+	<!-- Progress Bar (color updated to purple (placeholer)) -->
 	<div class="w-56">
 		<Progressbar progress={50} color="purple" />
 	</div>
