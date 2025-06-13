@@ -1,71 +1,98 @@
 <script>
 	import '../app.css';
+	import { theme } from '$lib/stores/theme.js';
+	import ImageLink from '$lib/components/ImageLink.svelte';
 	import {
 		FolderOpenOutline,
-		ClockOutline,
 		GithubSolid,
-		ServerOutline // The new icon for the backend
+		ServerOutline,
+		SunOutline,
+		MoonOutline
 	} from 'flowbite-svelte-icons';
-	import ImageLink from '$lib/components/ImageLink.svelte';
-	let api_url = 'http://localhost:8000';
+
 	let { children } = $props();
+	let api_url = 'http://localhost:8000';
+
+	function toggleTheme() {
+		theme.update((t) => (t === 'dark' ? 'light' : 'dark'));
+	}
 </script>
 
-<div class="flex min-h-screen flex-col bg-white dark:bg-gray-900">
-	<!-- Main Header -->
+<div
+	class="relative flex min-h-screen flex-col"
+	style={`background: url('${
+		$theme === 'dark' ? 'images/darkmode-bg.jpg' : 'images/whitemode-bg.jpg'
+	}') center/cover no-repeat;`}
+>
+	<!-- Header -->
 	<header class="flex items-center justify-between p-6">
-		<!-- Left: Cache List Link -->
+		<!-- Cache List -->
 		<a
 			href="/"
-			class="hover:text-primary-600 dark:hover:text-primary-400 flex flex-col items-center text-gray-600 transition-colors duration-200 dark:text-gray-300"
+			class="hover:text-primary-600 dark:hover:text-primary-400 flex flex-col items-center text-gray-600
+             transition-colors dark:text-gray-300"
 		>
-			<FolderOpenOutline
-				class="scale-180 transition-all duration-200 ease-in-out hover:scale-200"
-				size="xl"
-			/>
+			<FolderOpenOutline size="xl" />
 			<span class="mt-1 text-sm">Cache List</span>
 		</a>
 
-		<!-- Center: Title -->
-		<div class="flex flex-col items-center">
-			<ClockOutline size="xl" class="text-red-500" />
-			<h1 class="m-0 p-0 text-4xl font-semibold tracking-wider text-gray-800 dark:text-white">
+		<!-- Title -->
+		<div class="mt-5 flex flex-col items-center">
+			<h1
+				class="mt-0 mb-0 text-4xl font-semibold tracking-wider text-gray-800 drop-shadow-sm dark:text-white"
+			>
 				QuikMP3
 			</h1>
-			<div class="mt-2 h-1 w-48 bg-gray-800 dark:bg-gray-200"></div>
+			<div class="my-0 mt-2 h-1 w-48 bg-gray-800 dark:bg-gray-200"></div>
 		</div>
 
-		<!-- Right: Client Repo Link -->
-		<ImageLink href="http://example.com/client-repo" class="text-gray-800 dark:text-white">
-			<GithubSolid
-				class="mb-5 ml-10 scale-180 transition-all duration-200 ease-in-out hover:scale-235"
-				size="xl"
-			/>
-			<p class="text-sm">Web Client Repo</p>
+		<!-- Web Client Repo -->
+		<ImageLink
+			href="http://example.com/client-repo"
+			class="flex scale-135 flex-col items-center text-gray-800 hover:scale-145 dark:text-white"
+		>
+			<GithubSolid size="xl" />
+			<span class="mt-1 mr-1.5 text-sm text-shadow-lg/15 text-shadow-amber-200"
+				>Web Client Repo</span
+			>
 		</ImageLink>
 	</header>
 
-	<!-- Main content area -->
+	<!-- Page content -->
 	<main class="flex flex-grow items-center justify-center">
 		{@render children()}
 	</main>
 
-	<!-- Bottom-right: Backend Repo Link -->
-	<div class="absolute right-6 bottom-6">
-		<ImageLink
-			href="{api_url}/docs"
-			class="flex items-center space-x-2 text-sm text-gray-500 transition-colors duration-200 hover:text-green-500 dark:text-gray-400 dark:hover:text-green-400"
-			>{api_url}/docs</ImageLink
-		>
+	<!-- Light/Dark toggle in bottom-right -->
+	<button
+		onclick={toggleTheme}
+		class="absolute right-6 bottom-6 rounded-full p-2 shadow outline-1 transition hover:cursor-pointer hover:bg-gray-400 dark:bg-black/30 dark:outline-1 dark:outline-amber-200"
+		aria-label="Toggle light/dark mode"
+	>
+		{#if $theme === 'dark'}
+			<SunOutline class="h-6 w-6 text-yellow-400" />
+		{:else}
+			<MoonOutline class="h-6 w-6 text-blue-900" />
+		{/if}
+	</button>
+
+	<!-- API docs link & Backend repo in bottom-left -->
+	<div class="absolute bottom-6 flex flex-col">
 		<ImageLink
 			href="http://example.com/backend-repo"
-			class="flex items-center space-x-2 text-sm text-gray-500 transition-colors duration-200 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400"
+			class="mr-10 flex scale-125 flex-col items-center text-gray-800 hover:scale-135 dark:text-white"
 		>
-			<ServerOutline
-				class="mt-5 mr-5 scale-180 transition-all duration-200 ease-in-out hover:scale-235"
-			/>
-			<br />
-			<span class="mt-5 text-sm">Backend Repo</span>
+			<ServerOutline size="xl" />
+			<span class="mt-1 text-sm text-shadow-lg/15 text-shadow-amber-200">Backend Repo</span>
 		</ImageLink>
+
+		<a
+			href={api_url + '/docs'}
+			target="_blank"
+			rel="noopener"
+			class="ml-2 text-sm text-gray-600 hover:text-green-700 dark:text-gray-400 dark:hover:text-green-400"
+			><p class="ml-0 scale-95 text-sm text-shadow-lg/20 text-shadow-blue-200">API Docs</p>
+			{api_url}/docs
+		</a>
 	</div>
 </div>

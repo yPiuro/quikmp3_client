@@ -1,19 +1,17 @@
 import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
 
-// Set 'dark' as the default theme.
+// Default to dark mode :)
 const defaultValue = 'dark';
-// Get the stored theme from localStorage, or use the default.
 const initialValue = browser
     ? window.localStorage.getItem('theme') ?? defaultValue
     : defaultValue;
 
-// Create a writable store.
 export const theme = writable(initialValue);
 
-// Whenever the theme store changes, update localStorage.
 theme.subscribe((value) => {
-    if (browser) {
-        window.localStorage.setItem('theme', value);
-    }
+    if (!browser) return;
+    window.localStorage.setItem('theme', value);
+    // Toggle the `dark` class on the root <html> to use tailwind `dark:`
+    document.documentElement.classList.toggle('dark', value === 'dark');
 });
