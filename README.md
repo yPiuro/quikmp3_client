@@ -1,16 +1,17 @@
 # QuikMp3 - Web Client
-Simple Client for my convertion [API](https://github.com/yPiuro/convertion_api) the client is built with [Svelte](https://svelte.dev/) and is faily simple with only 2 pages
+Simple Client for my convertion [API](https://github.com/yPiuro/convertion_api) the client is built with [Svelte](https://svelte.dev/) + TailwindCSS and Flowbite and is fairly simple with only 2 pages
 
 ## Instructions for development
 
 ```
-wip
+git clone git@github.com:yPiuro/quikmp3_client
+cd quikmp3_client
+pnpm i
+pnpm dev
 ```
 
 
 ## Instructions for deployment
 
-```
-wip
-```
+Deploy however you like, svelete can be built to static websites, cloudflare pages, or whatever is desired.
 
