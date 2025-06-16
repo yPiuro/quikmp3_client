@@ -7,11 +7,13 @@ Simple Client for my convertion [API](https://github.com/yPiuro/convertion_api) 
 git clone git@github.com:yPiuro/quikmp3_client
 cd quikmp3_client
 pnpm i
-pnpm dev
+pnpm vite dev
 ```
 
 
 ## Instructions for deployment
 
 Deploy however you like, svelete can be built to static websites, cloudflare pages, or whatever is desired.
+
+CURRENTLY USING: `adapter-auto`
 
