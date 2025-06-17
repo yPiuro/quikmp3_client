@@ -11,7 +11,6 @@
 	"homepage": "https://github.com/shinokada/flowbite-svelte-starter",
 	"license": "MIT",
 	"type": "module",
-	"packageManager": "[email protected]",
 	"keywords": [
 		"svelte",
 		"runes",
