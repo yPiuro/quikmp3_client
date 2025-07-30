@@ -7,6 +7,7 @@
 
 	let fileInputElm;
 	let selectedQuality = 'best';
+	let progress = 0;
 	const qualityOptions = [
 		{ value: 'low', name: 'Low' },
 		{ value: 'medium', name: 'Medium' },
@@ -47,8 +48,11 @@
 
 		const form = new FormData();
 		form.append('file', file);
-		console.log(file);
+		progress = 33;
 		try {
+			setTimeout(() => {
+				progress = 66;
+			}, 100);
 			const res = await fetch(
 				`${api_url}/convert/?quality=${encodeURIComponent(selectedQuality)}`,
 				{
@@ -65,6 +69,9 @@
 			setTimeout(() => {
 				URL.revokeObjectURL(blobUrl);
 			}, 60_000);
+			setTimeout(() => {
+				progress = 100;
+			}, 200);
 			simDlClick(`${file.name.split('.')[0]}.mp3`, blobUrl);
 		} catch (e) {
 			console.error(e);
@@ -78,6 +85,9 @@
 		dlElm.download = filename;
 		document.body.append(dlElm);
 		dlElm.click();
+		setTimeout(() => {
+			progress = 0;
+		}, 700);
 		dlElm.remove();
 	}
 </script>
@@ -88,11 +98,17 @@
 	<div class="flex items-center space-x-2">
 		<label
 			for="quality-select"
-			class="text-lg font-medium text-gray-700 underline dark:text-gray-300"
+			class="font-serif text-lg font-bold text-gray-700 dark:text-amber-50"
 		>
 			Quality:
 		</label>
-		<Select id="quality-select" items={qualityOptions} value={selectedQuality} class="" />
+		<Select
+			id="quality-select"
+			items={qualityOptions}
+			value={selectedQuality}
+			class="max-h-10 border-green-600 text-xs font-bold focus:ring-2 focus:ring-green-800 dark:border-green-300 dark:focus:ring-2 dark:focus:ring-green-400"
+			style="background-color: transparent !important; color: green !important;"
+		/>
 	</div>
 
 	<!-- Drag-and-Drop File Input -->
@@ -109,11 +125,16 @@
 
 	<!-- Progress Bar -->
 	<div class="w-56">
-		<Progressbar progress={50} color="purple" />
+		<Progressbar {progress} color="orange" divClass="bg-gray-600" />
 	</div>
 
 	<!-- Convert Button -->
 	<div>
-		<Button class="cursor-pointer" color="dark" size="md" id="convertBtn">Convert</Button>
+		<Button
+			class="max-h-16 cursor-pointer bg-amber-300 dark:bg-amber-900"
+			color="dark"
+			size="md"
+			id="convertBtn">Convert</Button
+		>
 	</div>
 </div>
