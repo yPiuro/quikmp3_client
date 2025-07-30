@@ -11,7 +11,7 @@
 	"homepage": "https://github.com/shinokada/flowbite-svelte-starter",
 	"license": "MIT",
 	"type": "module",
-	"packageManager": "[email protected]",
+	"packageManager": "pnpm",
 	"keywords": [
 		"svelte",
 		"runes",
@@ -45,6 +45,7 @@
 		"@playwright/test": "^1.52.0",
 		"@sveltejs/adapter-auto": "^4.0.0",
 		"@sveltejs/adapter-cloudflare": "^7.0.4",
+		"@sveltejs/adapter-node": "^5.2.13",
 		"@sveltejs/kit": "^2.20.7",
 		"@sveltejs/vite-plugin-svelte": "^5.0.3",
 		"@svitejs/changesets-changelog-github-compact": "^1.2.0",
