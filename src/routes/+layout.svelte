@@ -29,23 +29,23 @@
 	<header class="flex items-center justify-between p-6">
 		<!-- Cache List Link-->
 		<a
-			href="/"
+			href="/cache"
 			class="hover:text-primary-600 dark:hover:text-primary-400 flex flex-col items-center text-gray-600
             transition-colors dark:text-gray-300"
 		>
 			<FolderOpenOutline size="xl" />
 			<span class="mt-1 text-sm">Cache List</span>
 		</a>
-
-		<div class="mt-5 flex flex-col items-center">
-			<h1
-				class="mb-0 mt-0 text-4xl font-semibold tracking-wider text-gray-800 drop-shadow-sm dark:text-white"
-			>
-				QuikMP3
-			</h1>
-			<div class="my-0 mt-2 h-1 w-48 bg-gray-800 dark:bg-gray-200"></div>
-		</div>
-
+		<a href="/">
+			<div class="mt-5 flex flex-col items-center">
+				<h1
+					class="hover:text-primary-600 dark:hover:text-primary-400 mb-0 mt-0 text-4xl font-semibold tracking-wider text-gray-800 drop-shadow-sm transition-colors dark:text-white"
+				>
+					QuikMP3
+				</h1>
+				<div class="my-0 mt-2 h-1 w-48 bg-gray-800 dark:bg-gray-200"></div>
+			</div>
+		</a>
 		<!-- Web Client Repo -->
 		<ImageLink
 			href="http://example.com/client-repo"
