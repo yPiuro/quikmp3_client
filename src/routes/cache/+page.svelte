@@ -1,8 +1,8 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount } from "svelte";
 	let cachedFiles = [];
 	let loading = false;
-	import api_url from '$lib/config.js';
+	import api_url from "$lib/config.js";
 	let intervalId;
 
 	async function fetchCachedFiles() {
@@ -12,13 +12,15 @@
 		try {
 			const res = await fetch(`${api_url}/cache`);
 			if (!res.ok) {
-				throw new Error('Failed to fetch cached files');
+				throw new Error("Failed to fetch cached files");
 			}
 			const data = await res.json();
-			const files = Object.entries(data.files).map(([filename, details]) => ({
-				filename,
-				...details
-			}));
+			const files = Object.entries(data.files).map(
+				([filename, details]) => ({
+					filename,
+					...details,
+				}),
+			);
 
 			cachedFiles = files;
 		} catch (error) {
@@ -29,12 +31,19 @@
 	}
 
 	function handleScroll() {
-		const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+		const { scrollTop, scrollHeight, clientHeight } =
+			document.documentElement;
 		if (scrollTop + clientHeight >= scrollHeight - 100) {
-			const visibleCount = document.querySelectorAll('.card').length;
-			const nextBatch = cachedFiles.slice(visibleCount, visibleCount + 10);
+			const visibleCount = document.querySelectorAll(".card").length;
+			const nextBatch = cachedFiles.slice(
+				visibleCount,
+				visibleCount + 10,
+			);
 			if (nextBatch.length > 0) {
-				cachedFiles = [...cachedFiles.slice(0, visibleCount), ...nextBatch];
+				cachedFiles = [
+					...cachedFiles.slice(0, visibleCount),
+					...nextBatch,
+				];
 			}
 		}
 	}
@@ -42,11 +51,11 @@
 	onMount(() => {
 		fetchCachedFiles();
 		intervalId = setInterval(fetchCachedFiles, 30000); // Fetch every 30 seconds
-		window.addEventListener('scroll', handleScroll);
+		window.addEventListener("scroll", handleScroll);
 
 		return () => {
 			clearInterval(intervalId);
-			window.removeEventListener('scroll', handleScroll);
+			window.removeEventListener("scroll", handleScroll);
 		};
 	});
 </script>
@@ -55,18 +64,34 @@
 <div class="container">
 	{#each cachedFiles as file}
 		<div class="card">
-			<img src="data:image/jpeg;base64,{file.thumbnail}" alt="Thumbnail" class="thumbnail" />
+			<img
+				src="data:image/jpeg;base64,{file.thumbnail}"
+				alt="Thumbnail"
+				class="thumbnail"
+			/>
 			<div class="card-info">
 				<div class="filename">
 					{file.filename}
-					<span class="tag">{file.file_extension.replace('.', '').toUpperCase()}</span>
+					<span class="tag"
+						>{file.file_extension
+							.replace(".", "")
+							.toUpperCase()}</span
+					>
 				</div>
 				<div class="links">
-					<a href={file.link_original} target="_blank" class="text-blue-500 underline">
+					<a
+						href={file.link_original}
+						target="_blank"
+						class="text-blue-500 underline"
+					>
 						Original
 					</a>
 					<span> | </span>
-					<a href={file.link_converted} target="_blank" class="text-blue-500 underline">
+					<a
+						href={file.link_converted}
+						target="_blank"
+						class="text-blue-500 underline"
+					>
 						Converted
 					</a>
 				</div>
@@ -106,11 +131,11 @@
 
 	.thumbnail {
 		width: 100%;
-		height: auto;
+		max-height: 27%;
 	}
 
 	.filename {
-		font-family: 'Roboto', sans-serif;
+		font-family: "Roboto", sans-serif;
 		font-weight: bold;
 		font-size: 1.2rem;
 		margin-bottom: 8px;
