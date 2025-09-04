@@ -48,7 +48,7 @@
 		</a>
 		<!-- Web Client Repo -->
 		<ImageLink
-			href="http://example.com/client-repo"
+			href="https://github.com/yPiuro/quikmp3_client"
 			class="scale-135 hover:scale-145 flex flex-col items-center text-gray-800 dark:text-white"
 		>
 			<GithubSolid size="xl" />
@@ -79,7 +79,7 @@
 	<!-- API docs link & Backend repo in bottom-left -->
 	<div class="absolute bottom-6 flex flex-col">
 		<ImageLink
-			href="http://example.com/backend-repo"
+			href="https://github.com/yPiuro/convertion_api"
 			class="hover:scale-135 mr-10 flex scale-125 flex-col items-center text-gray-800 dark:text-white"
 		>
 			<ServerOutline size="xl" />
@@ -87,7 +87,7 @@
 		</ImageLink>
 
 		<a
-			href={api_url + '/docs'}
+			href={api_url + '/'}
 			target="_blank"
 			rel="noopener"
 			class="ml-2 text-sm text-gray-600 hover:text-green-700 dark:text-gray-400 dark:hover:text-green-400"
