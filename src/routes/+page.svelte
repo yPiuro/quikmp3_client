@@ -73,6 +73,9 @@
 				progress = 100;
 			}, 200);
 			simDlClick(`${file.name.split('.')[0]}.mp3`, blobUrl);
+			alert(
+				`The quality selector only works if the file is not currently cached, to check please visit ${window.location.origin}/cache`
+			);
 		} catch (e) {
 			console.error(e);
 			alert('Network error: ' + e.message);
